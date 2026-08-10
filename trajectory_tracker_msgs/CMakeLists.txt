@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5...3.26)
 project(trajectory_tracker_msgs)
 
 set(CMAKE_CXX_STANDARD 14)

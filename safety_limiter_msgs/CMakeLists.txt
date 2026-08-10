@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5...3.26)
 project(safety_limiter_msgs)
 
 # Interface files are auto-discovered instead of enumerated. The ROS1 (catkin)

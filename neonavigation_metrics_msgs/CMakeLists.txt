@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.5...3.26)
 project(neonavigation_metrics_msgs)
 
 # helper.h uses a C++17 fold expression
