@@ -1,0 +1,42 @@
+name: ros2 ci
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  packages: read
+  issues: write         # hiding bot comments
+  pull-requests: write  # hiding bot comments
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - alpine-version: "3.23"
+            ros-distro: jazzy
+          - alpine-version: "3.23"
+            ros-distro: humble
+    uses: alpine-ros/alpine-ros-ci-workflows/.github/workflows/ros2.yaml@main
+    with:
+      alpine-version: ${{ matrix.alpine-version }}
+      ros-distro: ${{ matrix.ros-distro }}
+      enable-bot-comment: true
+      # The only entry in .rosinstall is sq_ros1_rclcpp_compat, a ROS 1-only
+      # dependency; the ROS 2 build needs no source dependencies at all.
+      no-rosinstall-files: true
+      # The neonavigation_msgs metapackage is a ROS 1 concept (catkin
+      # metapackages have no ROS 2 equivalent), so it is not built here.
+      manifest-files: |
+        costmap_cspace_msgs/package.xml
+        map_organizer_msgs/package.xml
+        neonavigation_metrics_msgs/package.xml
+        planner_cspace_msgs/package.xml
+        safety_limiter_msgs/package.xml
+        trajectory_tracker_msgs/package.xml
+    secrets:
+      bot-comment-token: ${{ secrets.GITHUB_TOKEN }}

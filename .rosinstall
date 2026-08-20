@@ -1,0 +1,12 @@
+# Source dependency not available from the Alpine ROS package repository.
+#
+# sq_ros1_rclcpp_compat provides generate_ros1_compat_headers(), which the
+# ROS 1 branch of these packages uses to emit ROS 2-style headers. It is not
+# released as an apk, so it is built from source here.
+#
+# ROS 1 only: the packages declare it under $ROS_VERSION == 1, and the ROS 2
+# job sets no-rosinstall-files.
+- git:
+    local-name: sq_ros1_rclcpp_compat
+    uri: https://github.com/seqsense/sq_ros1_rclcpp_compat.git
+    version: main
