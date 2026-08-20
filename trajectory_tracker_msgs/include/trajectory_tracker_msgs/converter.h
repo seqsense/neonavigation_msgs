@@ -27,27 +27,28 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef TRAJECTORY_TRACKER_MSGS_CONVERTER_H
-#define TRAJECTORY_TRACKER_MSGS_CONVERTER_H
+#ifndef TRAJECTORY_TRACKER_MSGS__CONVERTER_H_
+#define TRAJECTORY_TRACKER_MSGS__CONVERTER_H_
 
-#include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/Vector3.h>
-#include <nav_msgs/Path.h>
-#include <trajectory_tracker_msgs/PathWithVelocity.h>
+// ROS2-style message headers. On ROS1 these are the compatibility headers
+// emitted by generate_ros1_compat_headers() (sq_ros1_rclcpp_compat), which
+// alias <pkg>::msg::* to the catkin-generated types.
+#include "geometry_msgs/msg/pose_stamped.hpp"
+#include "geometry_msgs/msg/vector3.hpp"
+#include "nav_msgs/msg/path.hpp"
+#include "trajectory_tracker_msgs/msg/path_with_velocity.hpp"
+#include "trajectory_tracker_msgs/msg/pose_stamped_with_velocity.hpp"
 
 namespace trajectory_tracker_msgs
 {
-inline PathWithVelocity toPathWithVelocity(
-    const nav_msgs::Path& src,
-    const double vel)
+inline msg::PathWithVelocity toPathWithVelocity(const nav_msgs::msg::Path & src, const double vel)
 {
-  PathWithVelocity dest;
+  msg::PathWithVelocity dest;
   dest.header = src.header;
   dest.poses.clear();
   dest.poses.reserve(src.poses.size());
-  for (const geometry_msgs::PoseStamped& p : src.poses)
-  {
-    PoseStampedWithVelocity pv;
+  for (const geometry_msgs::msg::PoseStamped & p : src.poses) {
+    msg::PoseStampedWithVelocity pv;
     pv.header = p.header;
     pv.pose = p.pose;
     pv.linear_velocity.x = vel;
@@ -55,17 +56,15 @@ inline PathWithVelocity toPathWithVelocity(
   }
   return dest;
 }
-inline PathWithVelocity toPathWithVelocity(
-    const nav_msgs::Path& src,
-    const geometry_msgs::Vector3& vel)
+inline msg::PathWithVelocity toPathWithVelocity(
+  const nav_msgs::msg::Path & src, const geometry_msgs::msg::Vector3 & vel)
 {
-  PathWithVelocity dest;
+  msg::PathWithVelocity dest;
   dest.header = src.header;
   dest.poses.clear();
   dest.poses.reserve(src.poses.size());
-  for (const geometry_msgs::PoseStamped& p : src.poses)
-  {
-    PoseStampedWithVelocity pv;
+  for (const geometry_msgs::msg::PoseStamped & p : src.poses) {
+    msg::PoseStampedWithVelocity pv;
     pv.header = p.header;
     pv.pose = p.pose;
     pv.linear_velocity = vel;
@@ -75,4 +74,4 @@ inline PathWithVelocity toPathWithVelocity(
 }
 }  // namespace trajectory_tracker_msgs
 
-#endif  // TRAJECTORY_TRACKER_MSGS_CONVERTER_H
+#endif  // TRAJECTORY_TRACKER_MSGS__CONVERTER_H_
