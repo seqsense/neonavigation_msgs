@@ -23,19 +23,5 @@ jobs:
       # CODECOV_TOKEN, so comment through the plain GitHub API and skip the
       # coverage upload. Restore both when merging upstream.
       enable-codecov: false
-      # .rosinstall pulls the whole sq_ros1_rclcpp_compat repository, whose
-      # samples/ packages are demos that this repository must not be gated on.
-      # Restrict the build to this repository's packages plus the compat
-      # package itself. The ../.. paths resolve to the container's ~/extsrc,
-      # where the rosinstall dependencies are checked out.
-      manifest-files: |
-        costmap_cspace_msgs/package.xml
-        map_organizer_msgs/package.xml
-        neonavigation_metrics_msgs/package.xml
-        neonavigation_msgs/package.xml
-        planner_cspace_msgs/package.xml
-        safety_limiter_msgs/package.xml
-        trajectory_tracker_msgs/package.xml
-        ../../home/builder/extsrc/sq_ros1_rclcpp_compat/sq_ros1_rclcpp_compat/package.xml
     secrets:
       bot-comment-token: ${{ secrets.GITHUB_TOKEN }}
